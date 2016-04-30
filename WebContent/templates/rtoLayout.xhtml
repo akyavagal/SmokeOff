@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:view contentType="text/html" locale="en">
+	<h:head title="#{msg['app.title']}">
+		<f:facet name="first">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="pragma" content="no-cache" />
+			<meta http-equiv="cache-control" content="no-cache" />
+			<meta http-equiv="expires" content="0" />
+		</f:facet>
+
+		<f:facet name="last">
+			<h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+		</f:facet>
+
+
+		<ui:insert name="head" />
+	</h:head>
+	<h:body style="background-image:url(../resources/images/teamgreen.png); 	background-repeat: y-repeat;">
+		<div id="wrapper">
+
+			<div
+				class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
+				style="height: 60px; margin-bottom: 10px;">
+				<h2 style="color:white ; text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 8px green;"> SmokeOff - Ensuring Green India by empowering Anti-Pollution Drive</h2>
+			</div>
+			<div id="mainMenu" style="margin-bottom: 2px;">
+				<h:form id="mainMenuForm">
+
+					<p:menubar>
+						<p:menuitem value="Home" url="rto.jsf" icon="ui-icon-home" />
+						<p:menuitem value="Check Registration Status" url="rto_check_status.jsf"
+							icon="ui-icon-image" />
+							
+						<p:menuitem value="Register Vehicle" url="rto_register_vehicle.jsf"
+						icon="ui-icon-pencil" />
+
+						<p:menuitem value="Add Vehicle" url="rto_add_vehicle.jsf"
+							icon="ui-icon-plus" />
+							
+						<p:menuitem value="Add Tester" url="rto_add_tester.jsf"
+							icon="ui-icon-lightbulb" />
+							
+							
+						<p:menuitem value="Raise Incident" url="rto_raise_incident.jsf"
+							icon="ui-icon-arrowthickstop-1-n" />
+							
+						<p:menuitem value="Lock Vehicle" url="rto_lock_vehicle.jsf"
+							icon="ui-icon-locked" />
+							
+						<p:menuitem value="Unlock Vehicle" url="rto_unlock_vehicle.jsf"
+							icon="ui-icon-unlocked" />
+							
+						<p:menuitem value="Print Receipt" url="rto_print_receipt.jsf"
+							icon="ui-icon-print" />
+
+
+						<f:facet name="options">
+							<p:outputLabel
+								style="font-weight:bold; color: white; text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;"
+								value="Welcome #{userController.userId}! "
+								rendered="#{userController.userLoggedIn}" />
+							<p:spacer width="30"></p:spacer>
+							<p:commandButton value=" Logout"
+								action="#{userController.logout}" style="margin-right:10px"
+								icon="ui-icon-extlink" rendered="#{userController.userLoggedIn}" />
+						</f:facet>
+
+					</p:menubar>
+				</h:form>
+			</div>
+			<div class="ui-panel ui-widget ui-widget-content ui-corner-all"
+				style="margin-bottom: 3px; min-height: 600px;">
+				<ui:insert name="bodyContent" />
+			</div>
+
+		</div>
+	</h:body>
+</f:view>
+</html>

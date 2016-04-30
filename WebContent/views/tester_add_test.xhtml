@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/testerLayout.xhtml">
+
+	<ui:define name="head">
+		<style>
+.ui-growl {
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	z-index: 9999;
+}
+</style>
+	</ui:define>
+	<ui:define name="bodyContent">
+
+		<p:panel header="Test Vehicle Form" toggleable="true"
+			toggleOrientation="vertical" style="width: 1300px; margin: 0 auto;">
+			<p:growl id="growl" showDetail="true" sticky="false" />
+			<h:form id="testvehicle">
+				<p:messages />
+				<h:panelGrid columns="2">
+
+					<p:outputLabel for="incident11" value="Select Registration Number " />
+					<p:selectOneMenu id="incident11" 
+						value="#{testerController.selectedRegNumber}" style="width:300px;"
+						required="true" requiredMessage="Registration Number is Required.">
+						<f:selectItem itemLabel="Select Registration Number " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.regNumbers}" />
+					</p:selectOneMenu>
+					
+
+					<p:outputLabel value="Test Date :*" />
+					<p:calendar value="#{testerController.test.testDate}"
+						yearRange="c-80:c+0" id="dob" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Test Date">
+						<p:tooltip for="dob" value="Please enter TestDate" />
+					</p:calendar>
+		
+					<p:outputLabel value="Test Name :*" />
+					<p:inputText id="model1" requiredMessage="Test Number not specified."
+						value="#{testerController.test.testNumber}" required="true"
+						label="Test Number">
+					</p:inputText>
+					
+					<p:outputLabel value="Test parameter 1 (Carbon Monoxide - CO) :*" />
+					<p:inputText id="make1" requiredMessage="Test Parameter1 not specified."
+						value="#{testerController.test.testParameter1}" required="true"
+						label="Test Parameter 1">
+					</p:inputText>
+					
+					<p:outputLabel value="Test parameter 2 (Carbon Dioxide - CO2):*" />
+					<p:inputText id="make2" requiredMessage="Test Parameter2 not specified."
+						value="#{testerController.test.testParameter2}" required="true"
+						label="Test Parameter 2">
+					</p:inputText>
+					
+					<p:outputLabel value="Test parameter 3 (Hydro Carbon - HC):*" />
+					<p:inputText id="make3" requiredMessage="Test Parameter3 not specified."
+						value="#{testerController.test.testParameter3}" required="true"
+						label="Test Parameter 3">
+					</p:inputText>
+					
+					
+					<p:inputText id="engine1" requiredMessage="Test Result not specified." readonly="true" rendered="false"
+						value="#{testerController.test.testResult}" required="true"
+						label="Test Result">
+					</p:inputText>
+					
+					<p:outputLabel value="Test Result :" />
+
+					<p:outputLabel value="" />
+					<p:commandButton action="#{testerController.testEmission}"
+						ajax="false" value="Test Emission" update="@form" />
+
+				</h:panelGrid>
+			</h:form>
+			
+		</p:panel>
+	</ui:define>
+</ui:composition>

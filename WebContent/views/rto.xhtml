@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/rtoLayout.xhtml">
+
+	<ui:define name="head">
+		<style>
+.ui-growl {
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	z-index: 9999;
+}
+</style>
+	</ui:define>
+	<ui:define name="bodyContent">
+
+	<p:separator></p:separator>
+		<p:accordionPanel>
+        <p:tab title="RTO Details 1">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText
+                    value=" Details 1.  Not yet implemented...." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="RTO Details 2">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Details 1. Not yet implemented...." />
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="RTO Details 3">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:outputText value="Details 3..  Not yet implemented...." />
+            </h:panelGrid>
+        </p:tab>
+    </p:accordionPanel>
+
+	</ui:define>
+</ui:composition>

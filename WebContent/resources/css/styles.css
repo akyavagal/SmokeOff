@@ -1,0 +1,34 @@
+#wrapper {
+	width: 1500px;
+	margin: 0 auto;
+	text-align: left;
+	background: #7F878E;
+	border: 1px dashed;
+	border-radius: 10px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.header {
+	height: 50px;
+	background: #F0F0F0;
+	border: 1px dashed #CCC;
+	margin: 2px auto;
+	border: 2px dashed;
+	border-radius: 8px;
+	box-shadow: 10px 10px 5px #888888;
+}
+
+.ui-widget {
+	font-size: 12px !important;
+	border: 1px thin;
+	border-radius: 8px;
+}
+
+.table-align-top td {
+	vertical-align: top;
+}
+
+.ui-picklist-list {
+	height: 100px !important;
+	width: 200px !important;
+}

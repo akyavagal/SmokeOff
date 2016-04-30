@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/rtoLayout.xhtml">
+
+	<ui:define name="head">
+		<style>
+.ui-growl {
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	z-index: 9999;
+}
+</style>
+	</ui:define>
+	<ui:define name="bodyContent">
+
+		<p:panel header="All Vehicle Details" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto;">
+			<h:form id="viewVehicles" style="color: red; bold;">
+				<p:dataTable id="vehicles" var="vehicle" paginator="true" rows="5"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15"  lazy="false"
+					value="#{vehicleController.vehicleList}" style="width: 100%">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{vehicle.id}" />
+					</p:column>
+					
+					
+					<p:column headerText="Model">
+            			<h:outputText value="#{vehicle.model}" />
+        			</p:column>
+        
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Make" />
+						</f:facet>
+						<h:outputText value="#{vehicle.make}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Year" />
+						</f:facet>
+						<h:outputText value="#{vehicle.year}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Chassis Number" />
+						</f:facet>
+						<h:outputText value="#{vehicle.chassisNo}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Engine Number" />
+						</f:facet>
+						<h:outputText value="#{vehicle.engineNumber}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Vehicle Number" />
+						</f:facet>
+						<h:outputText value="#{vehicle.vehicleNumber}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Emission Test Status" />
+						</f:facet>
+						<h:outputText value="#{vehicle.testStatus}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+		<p:growl id="growl" showDetail="true" sticky="false" />  
+
+		<p:panel header="Add Vehicle Form" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto;">
+			<h:form id="addVehicleForm">
+				<p:messages />
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Model :*" />
+					<p:inputText id="model1" requiredMessage="Model not specified."
+						value="#{vehicleController.vehicle.model}" required="true"
+						label="Model">
+					</p:inputText>
+					
+					<p:outputLabel value="Make :*" />
+					<p:inputText id="make1" requiredMessage="Make not specified."
+						value="#{vehicleController.vehicle.make}" required="true"
+						label="Make">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Year :*" />
+					<p:inputText id="year1" requiredMessage="Year not specified."
+						value="#{vehicleController.vehicle.year}" required="true"
+						label="Year">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Engine Number :*" />
+					<p:inputText id="engine1" requiredMessage="Engine Number not specified."
+						value="#{vehicleController.vehicle.engineNumber}" required="true"
+						label="Engine Number">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Chassis Number :*" />
+					<p:inputText id="chassis1" requiredMessage="Chassis Number not specified."
+						value="#{vehicleController.vehicle.chassisNo}" required="true"
+						label="Chassis Number">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Vehicle Number :*" />
+					<p:inputText id="vin" requiredMessage="Vehicle NUmber not specified."
+						value="#{vehicleController.vehicle.vehicleNumber}" required="true"
+						label="Model">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Test Status :*" />
+					<p:inputText id="model" requiredMessage="Test Status not specified."
+						value="#{vehicleController.vehicle.testStatus}" required="true"
+						label="Model">
+					</p:inputText>
+
+					<p:outputLabel value="" />
+					<p:commandButton action="#{vehicleController.addVehicle}" ajax="false"
+						value="Add Vehicle" update="@form" />
+				</h:panelGrid>
+			</h:form>
+					
+		</p:panel>
+			
+	</ui:define>
+</ui:composition>

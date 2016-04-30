@@ -1,0 +1,198 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/rtoLayout.xhtml">
+
+	<ui:define name="head">
+		<style>
+.ui-growl {
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	z-index: 9999;
+}
+</style>
+	</ui:define>
+	<ui:define name="bodyContent">
+
+
+	<p:panel header="Register New vehicle" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto;">
+			<h:form id="regNewVehicle">
+				<p:messages />
+				<p:growl id="growl" showDetail="true" sticky="false" />  
+				<h:panelGrid columns="2">
+					
+					<p:outputLabel for="vehicle" value="Select Vehicle: " />
+					<p:selectOneMenu id="vehicle" value="#{regController.selectedVehicleNumber}"
+						style="width:300px;" required="true"
+						requiredMessage="Vehicle Selection is required.">
+						<f:selectItem itemLabel="Select Vehicle " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.vehicles}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="owner" value="Select Owner of the Vehicle: " />
+					<p:selectOneMenu id="owner" value="#{regController.selectedAadharNumber}"
+						  style="width:300px;" requiredMessage="Vehicle Selection is required.">
+						<f:selectItem itemLabel="Select Owner " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.owners}" />
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Registration Date :*" />
+					<p:calendar value="#{regController.registration.regDate}"
+						yearRange="c-80:c+0" id="regdate1111" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Registration Date">
+						<p:tooltip for="regdate1111" value="Please enter Registration Date" />
+					</p:calendar>
+					
+					<p:outputLabel value="Renewal Date :*" />
+					<p:calendar value="#{regController.registration.renewalDate}"
+						yearRange="c-80:c+0" id="rendate111" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Renewal Date">
+						<p:tooltip for="rendate111" value="Please enter Renewal Date" />
+					</p:calendar>
+					
+					<p:outputLabel value="Registration Status :*" />
+					<p:inputText id="regstatus1111" requiredMessage="Status not specified."
+						value="#{regController.registration.status}" required="true"
+						label="Registration Status">
+					</p:inputText>
+					
+					<h:outputLabel style="color:red; bold;" value="Note:  Please add the new owner details if it does not already exist."></h:outputLabel>
+					
+					<p:outputLabel value="" />
+					<p:commandButton action="#{regController.createRegistration}" ajax="false"
+						value="Create Registration (Link Vehicle and Owner)" update="@form"  />
+					
+					
+					</h:panelGrid>
+				</h:form>
+				</p:panel>
+					
+					<p:panel header="Add New Vehicle Owner Form" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto;">
+			<h:form id="addOwner">
+				<h:panelGrid columns="2">
+				
+					<p:outputLabel for="vehicle11" value="Select Vehicle: " />
+					<p:selectOneMenu id="vehicle11" value="#{regController.selectedVehicleNumber}"
+						style="width:300px;" required="true"
+						requiredMessage="Vehicle Selection is required.">
+						<f:selectItem itemLabel="Select Vehicle " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.vehicles}" />
+					</p:selectOneMenu>
+				
+					<p:outputLabel value="Aadhar Number :*" />
+					<p:inputText id="aadhar1" requiredMessage="Aadhar Number not specified."
+						value="#{regController.owner.aadharNumber}" required="true"
+						label="Aadhar Number">
+					</p:inputText>
+					
+					<p:outputLabel value="Name :*" />
+					<p:inputText id="name111" requiredMessage="Name Number not specified."
+						value="#{regController.owner.name}" required="true"
+						label="Name">
+					</p:inputText>
+					
+					<p:outputLabel value="City :*" />
+					<p:inputText id="city1" requiredMessage="City not specified."
+						value="#{regController.owner.city}" required="true"
+						label="City">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Contact Number :*" />
+					<p:inputText id="contact1" requiredMessage="Contact Number not specified."
+						value="#{regController.owner.contactNumber}" required="true"
+						label="Contact Number">
+					</p:inputText>
+					
+					<p:outputLabel value="Driving License Number :*" />
+					<p:inputText id="license1" 
+						value="#{regController.owner.drivingLicenseNo}" 
+						label="License Number">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Email :*" />
+					<p:inputText id="email1" requiredMessage="Email not specified."
+						value="#{regController.owner.email}" required="true"
+						label="Email">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Address :*" />
+					<h:panelGroup>
+						<p:inputTextarea value="#{regController.owner.address}" requiredMessage="Address Not Specified"
+							id="address" required="true" label="Address" counter="display"
+							maxlength="80" counterTemplate="({0} characters left)" />
+						<h:outputText id="display"
+							style="font-style:italic; font-size:12px;" />
+						<p:tooltip for="address" value="Please enter your address" />
+					</h:panelGroup>
+					
+					
+					<p:outputLabel value="License Status :*" />
+					<p:inputText id="status1" requiredMessage="Status not specified."
+						value="#{regController.owner.licenseStatus}" required="true"
+						label="Model">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="Date of Birth :*" />
+					<p:calendar value="#{regController.owner.dateOfBirth}"
+						yearRange="c-80:c+0" id="dob" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Date Of Birth">
+						<p:tooltip for="dob" value="Please enter DOB" />
+					</p:calendar>
+					
+					
+					<p:outputLabel value="Registration Date :*" />
+					<p:calendar value="#{regController.registration.regDate}"
+						yearRange="c-80:c+0" id="regdate" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Registration Date">
+						<p:tooltip for="regdate" value="Please enter Registration Date" />
+					</p:calendar>
+					
+					<p:outputLabel value="Renewal Date :*" />
+					<p:calendar value="#{regController.registration.renewalDate}"
+						yearRange="c-80:c+0" id="rendate" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Renewal Date">
+						<p:tooltip for="rendate" value="Please enter Renewal Date" />
+					</p:calendar>
+					
+					<p:outputLabel value="Registration Status :*" />
+					<p:inputText id="regstatus1" requiredMessage="Status not specified."
+						value="#{regController.registration.status}" required="true"
+						label="Registration Status">
+					</p:inputText>
+					
+					
+					<p:outputLabel value="" />
+					<p:commandButton action="#{regController.addVehicleOwnerAndCreateRegistration}" ajax="false" 
+						value="Add Owner and Create Registration" update="@form" />
+				</h:panelGrid>
+				
+				</h:form>
+				</p:panel>
+				
+				
+				
+				
+				
+			
+		
+
+					
+			
+					
+
+
+			
+	</ui:define>
+</ui:composition>

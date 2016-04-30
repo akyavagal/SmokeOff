@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/testerLayout.xhtml">
+
+	<ui:define name="head">
+		<style>
+.ui-growl {
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	z-index: 9999;
+}
+</style>
+	</ui:define>
+	<ui:define name="bodyContent">
+
+		<p:panel header="All Test Details" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto;">
+			<h:form id="alltestd" style="color: red; bold;">
+				<p:dataTable id="alltestd" var="test" paginator="true" rows="5"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15"  lazy="false"
+					value="#{testerController.testList}" style="width: 100%">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{test.id}" />
+					</p:column>
+					
+					
+					<p:column headerText="Test Number">
+            			<h:outputText value="#{test.testNumber}" />
+        			</p:column>
+        
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Date" />
+						</f:facet>
+						<h:outputText value="#{test.testDate}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Parameter 1" />
+						</f:facet>
+						<h:outputText value="#{test.testParameter1}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Parameter 2" />
+						</f:facet>
+						<h:outputText value="#{test.testParameter2}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Parameter 3" />
+						</f:facet>
+						<h:outputText value="#{test.testParameter3}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Result" />
+						</f:facet>
+						<h:outputText value="#{test.testResult}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Registration Number" />
+						</f:facet>
+						<h:outputText value="#{test.regNumber}" />
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/testerLayout.xhtml">
+
+	<ui:define name="head">
+		<style>
+.ui-growl {
+	position: absolute;
+	top: 50%;
+	left: 40%;
+	z-index: 9999;
+}
+</style>
+	</ui:define>
+	<ui:define name="bodyContent">
+
+		
+			<p:panel header="Generate Emission Certificate" toggleable="true"
+			toggleOrientation="vertical" style="width: 1300px; margin: 0 auto;">
+			<h:form id="genEmissionCert">
+				<p:messages />
+				<h:panelGrid columns="2">
+
+					<p:outputLabel for="incident1" value="Select Registration Number " />
+					<p:selectOneMenu id="incident1"
+						value="#{regController.selectedRegNumber}" style="width:300px;"
+						required="true" requiredMessage="Registration Number is Required.">
+						<f:selectItem itemLabel="Select Registration Number " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.regNumbers}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="" />
+					<p:commandButton action="#{regController.generateCertificate}"
+						ajax="false" value="Generate Emission Certificate" update="@form" />
+
+				</h:panelGrid>
+			</h:form>
+			
+		</p:panel>
+	
+		<p:panel header="Emission Certificate" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto; bold; size:20px; color:red;">
+			<h:form id="receiptform">
+			<p:outputLabel value="#{regController.emissionCertificate}" />
+			
+			</h:form>
+			</p:panel>
+
+	</ui:define>
+</ui:composition>
