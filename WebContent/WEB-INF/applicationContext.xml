@@ -13,7 +13,7 @@
     <context:annotation-config/>
     <context:spring-configured/>
 
-    <!-- Data Source Declaration -->
+    <!-- Data Source Declaration Local-->
     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
@@ -25,6 +25,19 @@
 		<property name="maxPoolSize" value="100" />
 		<property name="maxIdleTime" value="3600" />
 	</bean>
+	
+	 <!-- Data Source Declaration Prod-->
+	<!-- <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/inequote_greendb" />
+		<property name="user" value="inequote_root" />
+		<property name="password" value="root@123" />
+		<property name="acquireIncrement" value="5" />
+		<property name="minPoolSize" value="20" />
+		<property name="maxPoolSize" value="100" />
+		<property name="maxIdleTime" value="3600" />
+	</bean> -->
 
     <!-- Session Factory Declaration -->
     <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">

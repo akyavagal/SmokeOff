@@ -114,7 +114,7 @@ public class UserController implements Serializable
 
         JSFUtils.addInfoMsg("You have been logged out. Bye!");
 
-        return "views/login.jsf?faces-redirect=true";
+        return "/views/login.jsf?faces-redirect=true";
     }
 
     public Map<String, Boolean> getHasMessages()
