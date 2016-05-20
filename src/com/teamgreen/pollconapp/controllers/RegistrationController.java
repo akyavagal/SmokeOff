@@ -115,18 +115,18 @@ public class RegistrationController implements Serializable {
 	private Map<String, String> owners = null;
 
 	public RegistrationController() {
-		vehicles = new HashMap<>();
-		regNumbers = new HashMap<>();
-		owners = new HashMap<>();
+		vehicles = new HashMap<String,String>();
+		regNumbers = new HashMap<String,String>();
+		owners = new HashMap<String,String>();
 		owner = new Owner();
 		registration = new Registration();
 	}
 
-	private List<Vehicle> vehicleList = new ArrayList<>();
+	private List<Vehicle> vehicleList = new ArrayList<Vehicle>();
 
-	private List<Owner> ownerList = new ArrayList<>();
+	private List<Owner> ownerList = new ArrayList<Owner>();
 	
-	private List<Incident> incList = new ArrayList<>();
+	private List<Incident> incList = new ArrayList<Incident>();
 	
 	
 	public List<Incident> getIncList() {
@@ -137,7 +137,7 @@ public class RegistrationController implements Serializable {
 		this.incList = incList;
 	}
 
-	private List<Registration> regList = new ArrayList<>();
+	private List<Registration> regList = new ArrayList<Registration>();
 
 
 	public List<Registration> getRegList() {
