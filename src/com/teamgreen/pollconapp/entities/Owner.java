@@ -1,6 +1,7 @@
 package com.teamgreen.pollconapp.entities;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,144 +16,158 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "OWNER")
-public class Owner implements Serializable {
+public class Owner implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String aadharNumber;
+    private String name;
+    private String address;
+    private String contactNumber;
+    private String city;
+    private String email;
+    private Date dateOfBirth;
+    private String drivingLicenseNo;
+    private String licenseStatus;
+    private Set<Registration> registrations = new HashSet<Registration>(0);
 
-	private static final long serialVersionUID = 1L;
+    public Owner()
+    {
+        super();
+    }
 
-	public Owner() {
-		super();
-	}
+    @Column(name = "DRIVING_LICENSE_STATUS", nullable = true)
+    public String getLicenseStatus()
+    {
+        return licenseStatus;
+    }
 
-	private int id;
-	
-	private String aadharNumber;
-	
-	private String name;
-	private String address;
-	private String contactNumber;
-	private String city;
-	private String email;
-	private Date dateOfBirth;
-	private String drivingLicenseNo;
-	private String licenseStatus;
-	
-	@Column(name="DRIVING_LICENSE_STATUS", nullable = true)
-	public String getLicenseStatus() {
-		return licenseStatus;
-	}
+    public void setLicenseStatus(String licenseStatus)
+    {
+        this.licenseStatus = licenseStatus;
+    }
 
+    @Column(name = "DRIVING_LICENSE_NO", nullable = true, unique = true)
+    public String getDrivingLicenseNo()
+    {
+        return drivingLicenseNo;
+    }
 
-	public void setLicenseStatus(String licenseStatus) {
-		this.licenseStatus = licenseStatus;
-	}
+    public void setDrivingLicenseNo(String drivingLicenseNo)
+    {
+        this.drivingLicenseNo = drivingLicenseNo;
+    }
 
+    @OneToMany(targetEntity = Registration.class, cascade = 
+    {
+        CascadeType.ALL}
+    , fetch = FetchType.EAGER, mappedBy = "owner")
+    public Set<Registration> getRegistrations()
+    {
+        return registrations;
+    }
 
-	@Column(name="DRIVING_LICENSE_NO", nullable = true, unique = true)
-	public String getDrivingLicenseNo() {
-		return drivingLicenseNo;
-	}
+    public void setRegistrations(Set<Registration> registrations)
+    {
+        this.registrations = registrations;
+    }
 
+    @Override
+    public String toString()
+    {
+        return "Owner [id=" + id + ", aadharNumber=" + aadharNumber + ", name=" + name + ", address=" + address + ", contactNumber=" + contactNumber + ", city=" + city + ", email=" + email + ", dateOfBirth=" + dateOfBirth + ", registrations=" + registrations + "]";
+    }
 
-	public void setDrivingLicenseNo(String drivingLicenseNo) {
-		this.drivingLicenseNo = drivingLicenseNo;
-	}
+    @Id
+    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId()
+    {
+        return id;
+    }
 
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-	@OneToMany(targetEntity = Registration.class , cascade = { CascadeType.ALL },fetch = FetchType.EAGER, mappedBy = "owner")
-	public Set<Registration> getRegistrations() {
-		return registrations;
-	}
+    @Column(name = "NAME", nullable = false)
+    public String getName()
+    {
+        return name;
+    }
 
-	
-	public void setRegistrations(Set<Registration> registrations) {
-		this.registrations = registrations;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
+    @Column(name = "AADHAR_NUMBER", nullable = false)
+    public String getAadharNumber()
+    {
+        return aadharNumber;
+    }
 
-	@Override
-	public String toString() {
-		return "Owner [id=" + id + ", aadharNumber=" + aadharNumber + ", name=" + name + ", address=" + address
-				+ ", contactNumber=" + contactNumber + ", city=" + city + ", email=" + email + ", dateOfBirth="
-				+ dateOfBirth + ", registrations=" + registrations + "]";
-	}
+    public void setAadharNumber(String aadharNumber)
+    {
+        this.aadharNumber = aadharNumber;
+    }
 
-	private Set<Registration> registrations = new HashSet<Registration>(0);
-	
+    @Column(name = "ADDRESS", nullable = false)
+    public String getAddress()
+    {
+        return address;
+    }
 
-	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getId() {
-		return id;
-	}
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "CONTACT_NUMBER", nullable = false)
+    public String getContactNumber()
+    {
+        return contactNumber;
+    }
 
-	@Column(name="NAME", nullable = false)
-	public String getName() {
-		return name;
-	}
+    public void setContactNumber(String contactNumber)
+    {
+        this.contactNumber = contactNumber;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	@Column(name="AADHAR_NUMBER", nullable = false)
-	public String getAadharNumber() {
-		return aadharNumber;
-	}
+    @Column(name = "CITY", nullable = false)
+    public String getCity()
+    {
+        return city;
+    }
 
-	public void setAadharNumber(String aadharNumber) {
-		this.aadharNumber = aadharNumber;
-	}
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
 
-	@Column(name="ADDRESS", nullable = false)
-	public String getAddress() {
-		return address;
-	}
+    @Column(name = "EMAIL", nullable = false)
+    public String getEmail()
+    {
+        return email;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
 
-	@Column(name="CONTACT_NUMBER", nullable = false)
-	public String getContactNumber() {
-		return contactNumber;
-	}
+    @Column(name = "DOB", nullable = false)
+    public Date getDateOfBirth()
+    {
+        return dateOfBirth;
+    }
 
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
-	}
-
-	@Column(name="CITY", nullable = false)
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	@Column(name="EMAIL", nullable = false)
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name="DOB", nullable = false)
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
+    public void setDateOfBirth(Date dateOfBirth)
+    {
+        this.dateOfBirth = dateOfBirth;
+    }
 }

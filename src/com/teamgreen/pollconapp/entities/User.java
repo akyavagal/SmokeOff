@@ -9,61 +9,65 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "USER")
-public class User implements Serializable {
+public class User implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String userId;
+    private String password;
+    private String role; //TESTER, MANUFACTURER, RTO
 
-	private static final long serialVersionUID = 1L;
+    public User()
+    {
+        super();
+    }
 
-	public User() {
-		super();
-	}
+    @Id
+    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId()
+    {
+        return id;
+    }
 
-	private int id;
-	private String userId;
-	private String password;
-	private String role; //TESTER, MANUFACTURER, RTO
-	
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-	
-	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getId() {
-		return id;
-	}
+    @Column(name = "USER_ID", nullable = false, unique = true)
+    public String getUserId()
+    {
+        return userId;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setUserId(String userId)
+    {
+        this.userId = userId;
+    }
 
-	@Column(name="USER_ID", nullable = false, unique = true)
-	public String getUserId() {
-		return userId;
-	}
+    @Column(name = "PASSWORD", nullable = false)
+    public String getPassword()
+    {
+        return password;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
 
-	@Column(name="PASSWORD", nullable = false)
-	public String getPassword() {
-		return password;
-	}
+    @Column(name = "ROLE", nullable = false)
+    public String getRole()
+    {
+        return role;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	@Column(name="ROLE", nullable = false)
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	
-	
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
 }

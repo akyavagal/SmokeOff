@@ -9,91 +9,101 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "RTO")
-public class RTO implements Serializable {
+public class RTO implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String name;
+    private String address;
+    private String contactNumber;
+    private String city;
+    private String email;
+    private String rtoCode;
 
-	private static final long serialVersionUID = 1L;
+    public RTO()
+    {
+        super();
+    }
 
-	public RTO() {
-		super();
-	}
+    @Id
+    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId()
+    {
+        return id;
+    }
 
-	private int id;
-	private String name;
-	private String address;
-	private String contactNumber;
-	private String city;
-	private String email;
-	private String rtoCode;
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-	
-	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getId() {
-		return id;
-	}
+    @Column(name = "NAME", nullable = false)
+    public String getName()
+    {
+        return name;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setName(String name)
+    {
+        this.name = name;
+    }
 
-	@Column(name="NAME", nullable = false)
-	public String getName() {
-		return name;
-	}
+    @Column(name = "ADDRESS", nullable = false)
+    public String getAddress()
+    {
+        return address;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
 
-	@Column(name="ADDRESS", nullable = false)
-	public String getAddress() {
-		return address;
-	}
+    @Column(name = "CONTACT_NUMBER", nullable = false)
+    public String getContactNumber()
+    {
+        return contactNumber;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setContactNumber(String contactNumber)
+    {
+        this.contactNumber = contactNumber;
+    }
 
-	@Column(name="CONTACT_NUMBER", nullable = false)
-	public String getContactNumber() {
-		return contactNumber;
-	}
+    @Column(name = "CITY", nullable = false)
+    public String getCity()
+    {
+        return city;
+    }
 
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
-	}
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
 
-	@Column(name="CITY", nullable = false)
-	public String getCity() {
-		return city;
-	}
+    @Column(name = "EMAIL", nullable = false)
+    public String getEmail()
+    {
+        return email;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
 
-	@Column(name="EMAIL", nullable = false)
-	public String getEmail() {
-		return email;
-	}
+    @Column(name = "RTO_CODE", nullable = false)
+    public String getRtoCode()
+    {
+        return rtoCode;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name="RTO_CODE", nullable = false)
-	public String getRtoCode() {
-		return rtoCode;
-	}
-
-	public void setRtoCode(String rtoCode) {
-		this.rtoCode = rtoCode;
-	}
-
-	
-	
-
+    public void setRtoCode(String rtoCode)
+    {
+        this.rtoCode = rtoCode;
+    }
 }

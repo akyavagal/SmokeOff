@@ -7,51 +7,54 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "INCIDENT")
-public class Incident {
+public class Incident
+{
+    @SuppressWarnings("unused")
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String regNumber;
+    private String reason;
 
-	@SuppressWarnings("unused")
-	private static final long serialVersionUID = 1L;
+    public Incident()
+    {
+        super();
+    }
 
-	public Incident() {
-		super();
-	}
+    @Id
+    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId()
+    {
+        return id;
+    }
 
-	private int id;
-	private String regNumber;
-	private String reason;
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-	
-	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getId() {
-		return id;
-	}
+    @Column(name = "VEHICLE_REG_NO", nullable = false)
+    public String getRegNumber()
+    {
+        return regNumber;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setRegNumber(String regNumber)
+    {
+        this.regNumber = regNumber;
+    }
 
-	@Column(name="VEHICLE_REG_NO" , nullable = false)
-	public String getRegNumber() {
-		return regNumber;
-	}
+    @Column(name = "INCIDENT_REASON", nullable = false)
+    public String getReason()
+    {
+        return reason;
+    }
 
-	public void setRegNumber(String regNumber) {
-		this.regNumber = regNumber;
-	}
-
-	@Column(name="INCIDENT_REASON" , nullable = false)
-	public String getReason() {
-		return reason;
-	}
-
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
-	
-	
+    public void setReason(String reason)
+    {
+        this.reason = reason;
+    }
 }

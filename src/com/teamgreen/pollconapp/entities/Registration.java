@@ -1,6 +1,7 @@
 package com.teamgreen.pollconapp.entities;
 
 import java.io.Serializable;
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,92 +14,103 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "REGISTRATION")
-public class Registration implements Serializable {
+public class Registration implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private String regNumber;
+    private Date regDate;
+    private Date renewalDate;
+    private String status;
+    private Owner owner;
+    private Vehicle vehicle;
 
-	private static final long serialVersionUID = 1L;
+    public Registration()
+    {
+        super();
+    }
 
-	public Registration() {
-		super();
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = false, nullable = false)
+    public Owner getOwner()
+    {
+        return owner;
+    }
 
-	private int id;
-	private String regNumber;
-	private Date regDate;
-	private Date renewalDate;
-	private String status;
-	
-	private Owner owner;
-	private Vehicle vehicle;
-	
+    public void setOwner(Owner owner)
+    {
+        this.owner = owner;
+    }
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(unique = false, nullable = false)
-	public Owner getOwner() {
-		return owner;
-	}
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true, nullable = false)
+    public Vehicle getVehicle()
+    {
+        return vehicle;
+    }
 
-	public void setOwner(Owner owner) {
-		this.owner = owner;
-	}
+    public void setVehicle(Vehicle vehicle)
+    {
+        this.vehicle = vehicle;
+    }
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(unique = true, nullable = false)
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
+    @Id
+    @Column(name = "ID", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId()
+    {
+        return id;
+    }
 
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
+    public void setId(int id)
+    {
+        this.id = id;
+    }
 
-	@Id
-	@Column(name = "ID", unique = true, nullable = false)
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	public int getId() {
-		return id;
-	}
+    @Column(name = "REG_NUMBER", unique = true, nullable = false)
+    public String getRegNumber()
+    {
+        return regNumber;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setRegNumber(String regNumber)
+    {
+        this.regNumber = regNumber;
+    }
 
-	@Column(name = "REG_NUMBER", unique = true, nullable = false)
-	public String getRegNumber() {
-		return regNumber;
-	}
+    @Column(name = "REG_DATE", nullable = false)
+    public Date getRegDate()
+    {
+        return regDate;
+    }
 
-	public void setRegNumber(String regNumber) {
-		this.regNumber = regNumber;
-	}
+    public void setRegDate(Date regDate)
+    {
+        this.regDate = regDate;
+    }
 
-	@Column(name = "REG_DATE", nullable = false)
-	public Date getRegDate() {
-		return regDate;
-	}
+    @Column(name = "RENEWAL_DATE", nullable = false)
+    public Date getRenewalDate()
+    {
+        return renewalDate;
+    }
 
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
-	}
+    public void setRenewalDate(Date renewalDate)
+    {
+        this.renewalDate = renewalDate;
+    }
 
-	@Column(name = "RENEWAL_DATE", nullable = false)
-	public Date getRenewalDate() {
-		return renewalDate;
-	}
+    @Column(name = "STATUS", nullable = false)
+    public String getStatus()
+    {
+        return status;
+    }
 
-	public void setRenewalDate(Date renewalDate) {
-		this.renewalDate = renewalDate;
-	}
-
-	@Column(name = "STATUS", nullable = false)
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
 }
