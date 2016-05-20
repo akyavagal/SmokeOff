@@ -112,7 +112,7 @@ public class GreenAppService implements Serializable {
 	public List<Vehicle> getAllVehicles() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<Vehicle> vehicleList = new ArrayList<>();
+		List<Vehicle> vehicleList = new ArrayList<Vehicle>();
 		try {
 			tx = session.beginTransaction();
 
@@ -146,7 +146,7 @@ public class GreenAppService implements Serializable {
 	public List<EmissionTestCenter> getAllTesters() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<EmissionTestCenter> testerList = new ArrayList<>();
+		List<EmissionTestCenter> testerList = new ArrayList<EmissionTestCenter>();
 		try {
 			tx = session.beginTransaction();
 
@@ -185,7 +185,7 @@ public class GreenAppService implements Serializable {
 	public List<Owner> getAllOwners() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<Owner> ownerList = new ArrayList<>();
+		List<Owner> ownerList = new ArrayList<Owner>();
 		try {
 			tx = session.beginTransaction();
 
@@ -226,7 +226,7 @@ public class GreenAppService implements Serializable {
 	public List<Registration> getAllRegistrations() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<Registration> regList = new ArrayList<>();
+		List<Registration> regList = new ArrayList<Registration>();
 		try {
 			tx = session.beginTransaction();
 
@@ -361,7 +361,7 @@ public class GreenAppService implements Serializable {
 	
 	@Transactional(readOnly = false)
 	public int addOwner(Owner owner) {
-		return (int) getSessionFactory().getCurrentSession().save(owner);
+		return (Integer)getSessionFactory().getCurrentSession().save(owner);
 
 	}
 
@@ -371,7 +371,7 @@ public class GreenAppService implements Serializable {
 	public List<RTO> getAllRTOs() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<RTO> regList = new ArrayList<>();
+		List<RTO> regList = new ArrayList<RTO>();
 		try {
 			tx = session.beginTransaction();
 
@@ -410,7 +410,7 @@ public class GreenAppService implements Serializable {
 	public List<Incident> getAllIncidents() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<Incident> regList = new ArrayList<>();
+		List<Incident> regList = new ArrayList<Incident>();
 		try {
 			tx = session.beginTransaction();
 
@@ -483,7 +483,7 @@ public class GreenAppService implements Serializable {
 	public List<Test> getAllTests() {
 		Session session = getSessionFactory().openSession();
 		Transaction tx = null;
-		List<Test> regList = new ArrayList<>();
+		List<Test> regList = new ArrayList<Test>();
 		try {
 			tx = session.beginTransaction();
 

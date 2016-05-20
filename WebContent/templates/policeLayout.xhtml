@@ -20,34 +20,34 @@
 
 		<ui:insert name="head" />
 	</h:head>
-	<h:body
-		style="background-image:url(../resources/images/teamgreen.png); 	background-repeat: y-repeat;">
+	<h:body style="background-image:url(../resources/images/teamgreen.png); 	background-repeat: y-repeat;">
 		<div id="wrapper">
 
 			<div
 				class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"
 				style="height: 60px; margin-bottom: 10px;">
-				<h2
-					style="color: white; text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 8px green;">
-					SmokeOff - Ensuring Green India by empowering Anti-Pollution Drive</h2>
+				<h2 style="color:white ; text-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 8px green;"> SmokeOff - Ensuring Green India by empowering Anti-Pollution Drive</h2>
 			</div>
 			<div id="mainMenu" style="margin-bottom: 2px;">
 				<h:form id="mainMenuForm">
 
 					<p:menubar>
-						<p:menuitem value="Home" url="tester.jsf" icon="ui-icon-home" />
+						<p:menuitem value="Home" url="police.jsf" icon="ui-icon-home" />
+						<p:menuitem value="Check Vehicle Details" url="police_check_details.jsf"
+							icon="ui-icon-clock" />
 
-						<p:menuitem value="View Report" url="view_report.jsf" 
-						icon=" ui-icon-circle-zoomin" />
-
-						<p:menuitem value="Test History" url="tester_test_history.jsf"
-							icon="ui-icon-calculator" />
-						<p:menuitem value="Conduct Test" url="tester_add_test.jsf"
-							icon="ui-icon-wrench" />
-
-						<p:menuitem value="Print Certificate"
-							url="tester_print_certificate.jsf" icon="ui-icon-print" />
-
+						<p:menuitem value="Raise Incident/Complaint" url="police_raise_incident.jsf"
+							icon="ui-icon-arrowreturnthick-1-n" />
+							
+							<p:menuitem value="View Map Report" url="police_view_map_report.jsf"
+							icon="ui-icon-bookmark" />
+							
+							<p:menuitem value="View Speed-Gun Report" url="police_view_speed_gun_report.jsf"
+							icon="ui-icon-cart" />
+							
+							<p:menuitem value="Generate Challan" url="police_generate_challan.jsf"
+							icon="ui-icon-print" />
+						
 						<f:facet name="options">
 							<p:outputLabel
 								style="font-weight:bold; color: white; text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;"

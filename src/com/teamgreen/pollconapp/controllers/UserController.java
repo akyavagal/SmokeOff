@@ -1,164 +1,184 @@
 package com.teamgreen.pollconapp.controllers;
 
+import com.teamgreen.pollconapp.services.GreenAppService;
+import com.teamgreen.pollconapp.utils.JSFUtils;
+
 import java.io.Serializable;
+
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+
 import javax.servlet.http.HttpSession;
 
-import com.teamgreen.pollconapp.services.GreenAppService;
-import com.teamgreen.pollconapp.utils.JSFUtils;
 
 @ManagedBean(name = "userController")
 @SessionScoped
-public class UserController implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class UserController implements Serializable
+{
+    private static final long serialVersionUID = 1L;
+    @ManagedProperty(value = "#{GreenAppService}")
+    GreenAppService greenAppService;
+    private boolean userLoggedIn;
+    private String role;
+    private Map<String, String> roles;
+    private String userId;
+    private String password;
 
-	@ManagedProperty(value = "#{GreenAppService}")
-	GreenAppService greenAppService;
+    public UserController()
+    {
+    }
 
-	private boolean userLoggedIn;
+    public Map<String, String> getRoles()
+    {
+        return roles;
+    }
 
-	private String role;
+    public void setRoles(Map<String, String> roles)
+    {
+        this.roles = roles;
+    }
 
-	private Map<String, String> roles;
+    public GreenAppService getGreenAppService()
+    {
+        return greenAppService;
+    }
 
-	private String userId;
+    public void setGreenAppService(GreenAppService greenAppService)
+    {
+        this.greenAppService = greenAppService;
+    }
 
-	private String password;
+    public String doLogin()
+    {
+        String role = getRole();
+        String userId = getUserId();
+        String password = getPassword();
+        System.out.println("Role === " + role);
 
-	public UserController() {
+        boolean authenticated = getGreenAppService().authenticateUser(role, userId, password);
 
-	}
+        if (authenticated)
+        {
+            setUserLoggedIn(true);
+            JSFUtils.setLoggedinUser(userId);
+            System.out.println("Role === " + role);
 
-	public Map<String, String> getRoles() {
-		return roles;
-	}
+            if (role.equalsIgnoreCase("RTO"))
+            {
+                return "rto/rto.jsf?faces-redirect=true";
+            }
+            else if (role.equalsIgnoreCase("Vehicle Owner"))
+            {
+                return "owner/owner.jsf?faces-redirect=true";
+            }
+            else if (role.equalsIgnoreCase("PCSP"))
+            {
+                return "pcsp/tester.jsf?faces-redirect=true";
+            }
+            else if (role.equalsIgnoreCase("Traffic Police"))
+            {
+                return "police/police.jsf?faces-redirect=true";
+            }
+            else if (role.equalsIgnoreCase("ECB"))
+            {
+                return "ecb/ecb.jsf?faces-redirect=true";
+            }
+            else if (role.equalsIgnoreCase("Vehicle Maker"))
+            {
+                return "vendor/vendor.jsf?faces-redirect=true";
+            }
+        }
+        else
+        {
+            JSFUtils.addErrorMsg("Invalid UserType / UserId / Password combination entered.");
+        }
 
-	public void setRoles(Map<String, String> roles) {
-		this.roles = roles;
-	}
+        return null;
+    }
 
-	
-	public GreenAppService getGreenAppService() {
-		return greenAppService;
-	}
+    public String logout()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+        session.removeAttribute("LOGIN_USER");
+        session.invalidate();
 
-	public void setGreenAppService(GreenAppService greenAppService) {
-		this.greenAppService = greenAppService;
-	}
+        JSFUtils.addInfoMsg("You have been logged out. Bye!");
 
-	public String doLogin() {
+        return "views/login.jsf?faces-redirect=true";
+    }
 
-		String role = getRole();
-		String userId = getUserId();
-		String password = getPassword();
+    public Map<String, Boolean> getHasMessages()
+    {
+        HashMap<String, Boolean> flags = new HashMap<String, Boolean>(1);
+        Iterator<String> messages = FacesContext.getCurrentInstance().getClientIdsWithMessages();
 
-		boolean authenticated = getGreenAppService().authenticateUser(role, userId, password);
+        while (messages.hasNext())
+        {
+            flags.put(messages.next(), Boolean.TRUE);
+        }
 
-		if (authenticated) {
-			setUserLoggedIn(true);
-			 JSFUtils.setLoggedinUser(userId);
-			
-			if (role.equalsIgnoreCase("RTO"))
-			{
-				return "rto.jsf?faces-redirect=true";
-			}
-			else if (role.equalsIgnoreCase("Vehicle Owner"))
-			{
-				return "owner.jsf?faces-redirect=true";
-			}
-			else if (role.equalsIgnoreCase("Testing Center"))
-			{
-				return "tester.jsf?faces-redirect=true";
-			}
-			else if (role.equalsIgnoreCase("Site Admin"))
-			{
-				return "admin.jsf?faces-redirect=true";
-			}
-			else if (role.equalsIgnoreCase("Vehicle Maker"))
-			{
-				return "vendor.jsf?faces-redirect=true";
-			}
-		} else {
-			JSFUtils.addErrorMsg("Invalid UserType / UserId / Password combination entered.");
-		}
+        return flags;
+    }
 
-		return null;
-	}
+    public boolean isUserLoggedIn()
+    {
+        return userLoggedIn;
+    }
 
+    public void setUserLoggedIn(boolean userLoggedIn)
+    {
+        this.userLoggedIn = userLoggedIn;
+    }
 
-	public String logout() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-		session.removeAttribute("LOGIN_USER");
-		session.invalidate();
-		
-	        
-	    JSFUtils.addInfoMsg("You have been logged out. Bye!");
-
-		return "login.jsf?faces-redirect=true";
-	}
-
-	public Map<String, Boolean> getHasMessages() {
-		HashMap<String, Boolean> flags = new HashMap<String, Boolean>(1);
-		Iterator<String> messages = FacesContext.getCurrentInstance().getClientIdsWithMessages();
-
-		while (messages.hasNext()) {
-			flags.put(messages.next(), Boolean.TRUE);
-		}
-
-		return flags;
-	}
-
-	
-
-	public boolean isUserLoggedIn() {
-		return userLoggedIn;
-	}
-
-	public void setUserLoggedIn(boolean userLoggedIn) {
-		this.userLoggedIn = userLoggedIn;
-	}
-
-	@PostConstruct
-	public void init() {
-		roles  = new HashMap<String, String>();
-        roles.put("RTO", "RTO");
+    @PostConstruct
+    public void init()
+    {
+        roles = new LinkedHashMap<String, String>();
+        roles.put("Vehicle Maker (Manufacturer)", "Vehicle Maker");
+        roles.put("PCSP (Pollution Control Service Provider)", "PCSP");
         roles.put("Vehicle Owner", "Vehicle Owner");
-        roles.put("Vehicle Maker", "Vehicle Maker");
-        roles.put("Testing Center", "Testing Center");
-        roles.put("Site Admin", "Site Admin");  
-	}
+        roles.put("Traffic Police", "Traffic Police");
+        roles.put("RTO", "RTO");
+        roles.put("Emission Control Board (Govt. body)", "ECB");
+    }
 
-	public String getRole() {
-		return role;
-	}
+    public String getRole()
+    {
+        return role;
+    }
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    public void setRole(String role)
+    {
+        this.role = role;
+    }
 
-	public String getUserId() {
-		return userId;
-	}
+    public String getUserId()
+    {
+        return userId;
+    }
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+    public void setUserId(String userId)
+    {
+        this.userId = userId;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword()
+    {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
 }

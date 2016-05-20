@@ -17,9 +17,9 @@
     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/learndb" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/greendb" />
 		<property name="user" value="root" />
-		<property name="password" value="root" />
+		<property name="password" value="passwd" />
 		<property name="acquireIncrement" value="5" />
 		<property name="minPoolSize" value="20" />
 		<property name="maxPoolSize" value="100" />
@@ -34,7 +34,6 @@
                  <value>com.teamgreen.pollconapp.entities.Vehicle</value>
                  <value>com.teamgreen.pollconapp.entities.Owner</value>
                  <value>com.teamgreen.pollconapp.entities.EmissionTestCenter</value>
-                 <value>com.teamgreen.pollconapp.entities.EmissionStandards</value>
                  <value>com.teamgreen.pollconapp.entities.RTO</value>
                  <value>com.teamgreen.pollconapp.entities.Test</value>
                  <value>com.teamgreen.pollconapp.entities.User</value>
