@@ -535,7 +535,6 @@ public class GreenAppService implements Serializable
             //System.out.println("list === " + list);
             for (Test v : list)
             {
-            	
                 regList.add(v);
             }
 

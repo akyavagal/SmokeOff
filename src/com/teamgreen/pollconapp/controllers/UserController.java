@@ -149,7 +149,7 @@ public class UserController implements Serializable
         roles.put("Vehicle Owner", "Vehicle Owner");
         roles.put("Traffic Police", "Traffic Police");
         roles.put("RTO", "RTO");
-        roles.put("Emission Control Board (Govt. body)", "ECB");
+        //roles.put("Emission Control Board (Govt. body)", "ECB");
     }
 
     public String getRole()
