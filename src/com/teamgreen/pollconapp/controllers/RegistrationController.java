@@ -9,12 +9,14 @@ import com.teamgreen.pollconapp.services.GreenAppService;
 import com.teamgreen.pollconapp.utils.JSFUtils;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -46,29 +48,33 @@ public class RegistrationController implements Serializable
     private List<Test> testList = null;
     private boolean ownerRender = false;
 
-    public boolean isOwnerRender() {
-		return ownerRender;
-	}
-
-	public void setOwnerRender(boolean ownerRender) {
-		this.ownerRender = ownerRender;
-	}
-
-	public List<Test> getTestList() {
-		return testList;
-	}
-
-	public void setTestList(List<Test> testList) {
-		this.testList = testList;
-	}
-
-	public RegistrationController()
+    public RegistrationController()
     {
         vehicles = new HashMap<String, String>();
         regNumbers = new HashMap<String, String>();
         owners = new HashMap<String, String>();
         owner = new Owner();
         registration = new Registration();
+    }
+
+    public boolean isOwnerRender()
+    {
+        return ownerRender;
+    }
+
+    public void setOwnerRender(boolean ownerRender)
+    {
+        this.ownerRender = ownerRender;
+    }
+
+    public List<Test> getTestList()
+    {
+        return testList;
+    }
+
+    public void setTestList(List<Test> testList)
+    {
+        this.testList = testList;
     }
 
     public boolean isEmissionTestPassed()
@@ -234,7 +240,6 @@ public class RegistrationController implements Serializable
     @PostConstruct
     public void init()
     {
-        //System.out.println("green service : "+getGreenAppService());
         vehicleList = getGreenAppService().getAllVehicles();
 
         for (Vehicle v : vehicleList)
@@ -247,7 +252,6 @@ public class RegistrationController implements Serializable
 
         ownerList = getGreenAppService().getAllOwners();
 
-        //System.out.println(ownerList);
         if (ownerList != null)
         {
             for (Owner o : ownerList)
@@ -297,7 +301,7 @@ public class RegistrationController implements Serializable
             }
             catch (Exception e)
             {
-                JSFUtils.addErrorMsg("Error occurred. Cannot create registration." + e);
+                JSFUtils.addErrorMsg("Error occurred. Cannot create registration.");
             }
         }
 
@@ -306,10 +310,6 @@ public class RegistrationController implements Serializable
 
     public String addVehicleOwnerAndCreateRegistration()
     {
-        //System.out.println(getOwner());
-        //System.out.println(getSelectedVehicleNumber());
-
-        //System.out.println(getGreenAppService());
         try
         {
             String newRegistrationNumber = getGreenAppService().createRegistration(getOwner(), getSelectedVehicleNumber(), getRegistration());
@@ -328,8 +328,6 @@ public class RegistrationController implements Serializable
 
     public String createIncident()
     {
-        //System.out.println(getSelectedRegNumber());
-        //System.out.println(getReason());
         try
         {
             getGreenAppService().createIncident(getSelectedRegNumber(), getReason());
@@ -348,7 +346,6 @@ public class RegistrationController implements Serializable
 
     public String generateReceipt()
     {
-        //System.out.println(getSelectedRegNumber());
         try
         {
             List<Incident> incList = getGreenAppService().generateReceipt(getSelectedRegNumber());
@@ -366,7 +363,7 @@ public class RegistrationController implements Serializable
         }
         catch (Exception e)
         {
-            JSFUtils.addErrorMsg("Error occurred. No Receipt..."+e);
+            JSFUtils.addErrorMsg("Error occurred. No Receipt..." + e);
         }
 
         return null;
@@ -374,11 +371,10 @@ public class RegistrationController implements Serializable
 
     public String generateCertificate()
     {
-        System.out.println("Selected Reg Number : "+ getSelectedRegNumber());
         try
         {
             boolean testPassed = getGreenAppService().isEmissionTestPassed(getSelectedRegNumber());
-            System.out.println("testPassed ====> "+testPassed);
+
             if (testPassed)
             {
                 setEmissionCertificate("Test Passed");
@@ -399,27 +395,24 @@ public class RegistrationController implements Serializable
 
         return null;
     }
-    
-    
+
     public String getTestDetails()
     {
-        System.out.println("Selected Reg Number : "+ getSelectedRegNumber());
         try
         {
             List<Test> testDetails = getGreenAppService().getTestDetails(getSelectedRegNumber());
 
-            if(testDetails!=null && !testDetails.isEmpty())
+            if ((testDetails != null) && !testDetails.isEmpty())
             {
-            	JSFUtils.addInfoMsg("Success");
-            	setTestList(testDetails);
-            	setOwnerRender(true);
-            	
-            }else{
-            	JSFUtils.addInfoMsg("No details found.");
-            	setOwnerRender(false);
+                JSFUtils.addInfoMsg("Success");
+                setTestList(testDetails);
+                setOwnerRender(true);
             }
-
-            
+            else
+            {
+                JSFUtils.addInfoMsg("No details found.");
+                setOwnerRender(false);
+            }
         }
         catch (Exception e)
         {

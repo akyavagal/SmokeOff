@@ -1,16 +1,18 @@
 package com.teamgreen.pollconapp.controllers;
 
-import java.io.Serializable;
-import java.util.List;
-
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
-
 import com.teamgreen.pollconapp.entities.Test;
 import com.teamgreen.pollconapp.services.GreenAppService;
 import com.teamgreen.pollconapp.utils.JSFUtils;
+
+import java.io.Serializable;
+
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
 
 
 @ManagedBean(name = "testerController")
@@ -22,21 +24,22 @@ public class TesterController implements Serializable
     GreenAppService greenAppService;
     private List<Test> testList = null;
     private List<Test> testListExpiring = null;
-    public List<Test> getTestListExpiring() {
-		return testListExpiring;
-	}
-
-	public void setTestListExpiring(List<Test> testListExpiring) {
-		this.testListExpiring = testListExpiring;
-	}
-
-
-	private Test test;
+    private Test test;
     private String selectedRegNumber;
 
     public TesterController()
     {
         test = new Test();
+    }
+
+    public List<Test> getTestListExpiring()
+    {
+        return testListExpiring;
+    }
+
+    public void setTestListExpiring(List<Test> testListExpiring)
+    {
+        this.testListExpiring = testListExpiring;
     }
 
     public Test getTest()
@@ -69,7 +72,6 @@ public class TesterController implements Serializable
         this.testList = testList;
     }
 
-
     public GreenAppService getGreenAppService()
     {
         return greenAppService;
@@ -86,7 +88,6 @@ public class TesterController implements Serializable
         testList = getGreenAppService().getAllTests();
         testListExpiring = getGreenAppService().getAllTestsExpiringSoon();
     }
-
 
     public String testEmission()
     {

@@ -62,7 +62,6 @@ public class UserController implements Serializable
         String role = getRole();
         String userId = getUserId();
         String password = getPassword();
-        System.out.println("Role === " + role);
 
         boolean authenticated = getGreenAppService().authenticateUser(role, userId, password);
 
@@ -70,7 +69,6 @@ public class UserController implements Serializable
         {
             setUserLoggedIn(true);
             JSFUtils.setLoggedinUser(userId);
-            System.out.println("Role === " + role);
 
             if (role.equalsIgnoreCase("RTO"))
             {
@@ -87,10 +85,6 @@ public class UserController implements Serializable
             else if (role.equalsIgnoreCase("Traffic Police"))
             {
                 return "police/police.jsf?faces-redirect=true";
-            }
-            else if (role.equalsIgnoreCase("ECB"))
-            {
-                return "ecb/ecb.jsf?faces-redirect=true";
             }
             else if (role.equalsIgnoreCase("Vehicle Maker"))
             {
@@ -149,7 +143,6 @@ public class UserController implements Serializable
         roles.put("Vehicle Owner", "Vehicle Owner");
         roles.put("Traffic Police", "Traffic Police");
         roles.put("RTO", "RTO");
-        //roles.put("Emission Control Board (Govt. body)", "ECB");
     }
 
     public String getRole()

@@ -68,13 +68,13 @@ public class VehicleController implements Serializable
 
     public String addVehicle()
     {
-    	if(getVehicle()!=null)
-    	{
-    		String engNo = getVehicle().getEngineNumber();
-    		String chassisNo = getVehicle().getChassisNo();
-    		getVehicle().setVehicleNumber(engNo+chassisNo);
-    	}
-    	
+        if (getVehicle() != null)
+        {
+            String engNo = getVehicle().getEngineNumber();
+            String chassisNo = getVehicle().getChassisNo();
+            getVehicle().setVehicleNumber(engNo + chassisNo);
+        }
+
         try
         {
             getGreenAppService().createVehicle(getVehicle());

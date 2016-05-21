@@ -43,9 +43,9 @@
 					</p:column>
 					<p:column>
 						<f:facet name="header">
-							<h:outputText value="Year" />
+							<h:outputText value="Make Date" />
 						</f:facet>
-						<h:outputText value="#{vehicle.year}" />
+						<h:outputText value="#{vehicle.makeDate}" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">
@@ -100,10 +100,11 @@
 					
 					
 					<p:outputLabel value="Make Date :*" />
-					<p:inputText id="year1" requiredMessage="Year not specified."
-						value="#{vehicleController.vehicle.makeDate}" required="true"
+					<p:calendar value="#{vehicleController.vehicle.makeDate}"
+						yearRange="c-80:c+0" id="mkdt" navigator="true" required="true" pattern="yyyy-MM-dd"
 						label="Make Date">
-					</p:inputText>
+						<p:tooltip for="mkdt" value="Please enter Make Date" />
+					</p:calendar>
 					
 					
 					<p:outputLabel value="Engine Number :*" />
@@ -120,18 +121,12 @@
 					</p:inputText>
 					
 					
-					<p:outputLabel value="Vehicle Number :*" />
-					<p:inputText id="vin" requiredMessage="Vehicle NUmber not specified."
-						value="#{vehicleController.vehicle.vehicleNumber}" required="true"
-						label="Model">
-					</p:inputText>
-					
-					
-					<p:outputLabel value="Test Status :*" />
-					<p:inputText id="model" requiredMessage="Test Status not specified."
-						value="#{vehicleController.vehicle.testStatus}" required="true"
-						label="Model">
-					</p:inputText>
+					<p:outputLabel value="Emission Test Status:*" />
+					<p:selectOneMenu id="teststat" value="#{vehicleController.vehicle.testStatus}" required="true" requiredMessage="Test Status is mandatory">
+					 <f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Passed" itemValue="Passed" />
+						<f:selectItem itemLabel="Failed" itemValue="Failed" />
+					</p:selectOneMenu>
 
 					<p:outputLabel value="" />
 					<p:commandButton action="#{vehicleController.addVehicle}" ajax="false"
