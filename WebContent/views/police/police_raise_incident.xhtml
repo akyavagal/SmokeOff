@@ -16,7 +16,70 @@
 </style>
 	</ui:define>
 	<ui:define name="bodyContent">
-tbd
-		
+
+
+
+		<p:panel header="All Incident Details" toggleable="true"
+			toggleOrientation="vertical" style="width: 1200px; margin: 0 auto;">
+			<h:form id="inci" style="color: red; bold;">
+				<p:dataTable id="inci" var="inc" paginator="true" rows="5"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" lazy="false"
+					value="#{regController.incList}" style="width: 100%">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{inc.id}" />
+					</p:column>
+
+
+					<p:column headerText="Registration Number">
+						<h:outputText value="#{inc.regNumber}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Reason" />
+						</f:facet>
+						<h:outputText value="#{inc.reason}" />
+					</p:column>
+
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+
+		<p:panel header="Raise Incidents" toggleable="true"
+			toggleOrientation="vertical" style="width: 1300px; margin: 0 auto;">
+			<h:form id="raiseIncidents">
+				<p:messages />
+				<p:growl id="growl" showDetail="true" sticky="false" />
+				<h:panelGrid columns="2">
+
+					<p:outputLabel for="incident1" value="Select Registration Number " />
+					<p:selectOneMenu id="incident1"
+						value="#{regController.selectedRegNumber}" style="width:300px;"
+						required="true" requiredMessage="Registration Number is Required.">
+						<f:selectItem itemLabel="Select Registration Number " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.regNumbers}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="Incident Reason :*" />
+					<p:inputText id="regstatus1111"
+						requiredMessage="Reason not specified."
+						value="#{regController.reason}" required="true"
+						label="Incident Reason">
+					</p:inputText>
+
+					<p:outputLabel value="" />
+					<p:commandButton action="#{regController.createIncident}"
+						ajax="false" value="Create Incident" update="@form" />
+
+				</h:panelGrid>
+			</h:form>
+		</p:panel>
+
 	</ui:define>
 </ui:composition>

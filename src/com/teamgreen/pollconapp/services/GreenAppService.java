@@ -242,7 +242,6 @@ public class GreenAppService implements Serializable
             //System.out.println("list === " + list);
             for (Registration v : list)
             {
-            	v.getOwner().setName(v.getOwner().getName()+"_"+v.getOwner().getContactNumber());
                 regList.add(v);
             }
 
