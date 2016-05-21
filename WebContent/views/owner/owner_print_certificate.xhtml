@@ -17,7 +17,38 @@
 	</ui:define>
 	<ui:define name="bodyContent">
 
-		<h1>Owner Print Certificate page</h1>
+		
+			<p:panel header="Generate Emission Certificate" toggleable="true"
+			toggleOrientation="vertical" style="width: 1300px; margin: 0 auto;">
+			<h:form id="genEmissionCert">
+				<p:messages />
+				<h:panelGrid columns="2">
+
+					<p:outputLabel for="incident1" value="Select Registration Number " />
+					<p:selectOneMenu id="incident1"
+						value="#{regController.selectedRegNumber}" style="width:300px;"
+						required="true" requiredMessage="Registration Number is Required.">
+						<f:selectItem itemLabel="Select Registration Number " itemValue=""
+							noSelectionOption="true" />
+						<f:selectItems value="#{regController.regNumbers}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel value="" />
+					<p:commandButton action="#{regController.generateCertificate}"
+						ajax="false" value="Generate Emission Certificate" update="@form" />
+
+				</h:panelGrid>
+			</h:form>
+			
+		</p:panel>
+	
+		<p:panel header="Emission Certificate" toggleable="true"  toggleOrientation="vertical"
+			style="width: 1300px; margin: 0 auto; bold; size:20px; color:red;">
+			<h:form id="receiptform">
+			<p:outputLabel value="#{regController.emissionCertificate}" />
+			
+			</h:form>
+			</p:panel>
 
 	</ui:define>
 </ui:composition>

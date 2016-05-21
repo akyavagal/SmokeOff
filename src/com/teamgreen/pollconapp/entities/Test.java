@@ -25,8 +25,10 @@ public class Test implements Serializable
     private double testParameter2;
     private double testParameter3;
     private String testResult;
+    private Date testExpiry;
 
-    public Test()
+   
+	public Test()
     {
         super();
     }
@@ -120,4 +122,14 @@ public class Test implements Serializable
     {
         this.testResult = testResult;
     }
+    
+    @Column(name = "TEST_EXPIRY", nullable = false)
+    public Date getTestExpiry() {
+		return testExpiry;
+	}
+
+	public void setTestExpiry(Date testExpiry) {
+		this.testExpiry = testExpiry;
+	}
+
 }

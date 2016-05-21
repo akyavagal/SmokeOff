@@ -3,19 +3,18 @@ package com.teamgreen.pollconapp.controllers;
 import com.teamgreen.pollconapp.entities.Incident;
 import com.teamgreen.pollconapp.entities.Owner;
 import com.teamgreen.pollconapp.entities.Registration;
+import com.teamgreen.pollconapp.entities.Test;
 import com.teamgreen.pollconapp.entities.Vehicle;
 import com.teamgreen.pollconapp.services.GreenAppService;
 import com.teamgreen.pollconapp.utils.JSFUtils;
 
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -44,8 +43,17 @@ public class RegistrationController implements Serializable
     private List<Owner> ownerList = new ArrayList<Owner>();
     private List<Incident> incList = new ArrayList<Incident>();
     private List<Registration> regList = new ArrayList<Registration>();
+    private List<Test> testList = null;
 
-    public RegistrationController()
+    public List<Test> getTestList() {
+		return testList;
+	}
+
+	public void setTestList(List<Test> testList) {
+		this.testList = testList;
+	}
+
+	public RegistrationController()
     {
         vehicles = new HashMap<String, String>();
         regNumbers = new HashMap<String, String>();
@@ -224,7 +232,7 @@ public class RegistrationController implements Serializable
         {
             if (!v.getTestStatus().equalsIgnoreCase("Failed"))
             {
-                vehicles.put(v.getId() + "_" + v.getMake() + "_" + v.getModel() + "_" + v.getYear() + "_" + v.getVehicleNumber(), v.getVehicleNumber());
+                vehicles.put(v.getId() + "_" + v.getMake() + "_" + v.getModel() + "_" + v.getMakeDate() + "_" + v.getVehicleNumber(), v.getVehicleNumber());
             }
         }
 
@@ -349,7 +357,7 @@ public class RegistrationController implements Serializable
         }
         catch (Exception e)
         {
-            JSFUtils.addErrorMsg("Error occurred. No Receipt...");
+            JSFUtils.addErrorMsg("Error occurred. No Receipt..."+e);
         }
 
         return null;
@@ -374,6 +382,33 @@ public class RegistrationController implements Serializable
             }
 
             JSFUtils.addInfoMsg("Certificate generated successfully...");
+        }
+        catch (Exception e)
+        {
+            JSFUtils.addErrorMsg("Error occurred.");
+        }
+
+        return null;
+    }
+    
+    
+    public String getTestDetails()
+    {
+        System.out.println("Selected Reg Number : "+ getSelectedRegNumber());
+        try
+        {
+            List<Test> testDetails = getGreenAppService().getTestDetails(getSelectedRegNumber());
+
+            if(testDetails!=null)
+            {
+            	JSFUtils.addInfoMsg("Success");
+            	setTestList(testDetails);
+            	
+            }else{
+            	JSFUtils.addInfoMsg("No details found.");
+            }
+
+            
         }
         catch (Exception e)
         {

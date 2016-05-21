@@ -40,6 +40,13 @@
 						label="Test Date">
 						<p:tooltip for="dob" value="Please enter TestDate" />
 					</p:calendar>
+					
+					<p:outputLabel value="Test Expiry Date :*" />
+					<p:calendar value="#{testerController.test.testExpiry}"
+						yearRange="c-80:c+1" id="textepo" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Test Expiry Date">
+						<p:tooltip for="textepo" value="Please enter Test Expiry Date" />
+					</p:calendar>
 		
 					<p:outputLabel value="Test Name :*" />
 					<p:inputText id="model1" requiredMessage="Test Number not specified."

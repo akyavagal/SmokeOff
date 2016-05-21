@@ -17,7 +17,26 @@
 	</ui:define>
 	<ui:define name="bodyContent">
 
-		<h1>Owner Check Status page</h1>
+		<h3>The owner of the vehicle can check his vehicle Status like
+			Registration Info, Emission Testing info, etc</h3>
+
+		<p:panel header="Check Status" toggleable="true"
+			toggleOrientation="vertical" style="width: 1200px; margin: 0 auto;">
+			<h:form id="checkstst">
+				<p:messages />
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Enter Registration Number :*" />
+					<p:inputText id="regnum1" requiredMessage="Model not specified."
+						value="#{regController.selectedRegNumber}" required="true"
+						label="Registration Number">
+					</p:inputText>
+					
+					<p:commandButton action="#{regController.getTestDetails}" ajax="false"
+						value="Get Details" update="@form" />
+				</h:panelGrid>
+			</h:form>
+		</p:panel>
+
 
 	</ui:define>
 </ui:composition>

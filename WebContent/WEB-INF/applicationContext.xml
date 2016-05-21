@@ -46,8 +46,6 @@
             <list>
                  <value>com.teamgreen.pollconapp.entities.Vehicle</value>
                  <value>com.teamgreen.pollconapp.entities.Owner</value>
-                 <value>com.teamgreen.pollconapp.entities.EmissionTestCenter</value>
-                 <value>com.teamgreen.pollconapp.entities.RTO</value>
                  <value>com.teamgreen.pollconapp.entities.Test</value>
                  <value>com.teamgreen.pollconapp.entities.User</value>
                  <value>com.teamgreen.pollconapp.entities.Registration</value>

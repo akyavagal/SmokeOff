@@ -1,19 +1,16 @@
 package com.teamgreen.pollconapp.controllers;
 
-import com.teamgreen.pollconapp.entities.EmissionTestCenter;
-import com.teamgreen.pollconapp.entities.Test;
-import com.teamgreen.pollconapp.services.GreenAppService;
-import com.teamgreen.pollconapp.utils.JSFUtils;
-
 import java.io.Serializable;
-
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+
+import com.teamgreen.pollconapp.entities.Test;
+import com.teamgreen.pollconapp.services.GreenAppService;
+import com.teamgreen.pollconapp.utils.JSFUtils;
 
 
 @ManagedBean(name = "testerController")
@@ -23,15 +20,22 @@ public class TesterController implements Serializable
     private static final long serialVersionUID = 1L;
     @ManagedProperty(value = "#{GreenAppService}")
     GreenAppService greenAppService;
-    private List<EmissionTestCenter> testerList = null;
     private List<Test> testList = null;
-    private Test test;
+    private List<Test> testListExpiring = null;
+    public List<Test> getTestListExpiring() {
+		return testListExpiring;
+	}
+
+	public void setTestListExpiring(List<Test> testListExpiring) {
+		this.testListExpiring = testListExpiring;
+	}
+
+
+	private Test test;
     private String selectedRegNumber;
-    private EmissionTestCenter tester;
 
     public TesterController()
     {
-        tester = new EmissionTestCenter();
         test = new Test();
     }
 
@@ -65,25 +69,6 @@ public class TesterController implements Serializable
         this.testList = testList;
     }
 
-    public List<EmissionTestCenter> getTesterList()
-    {
-        return testerList;
-    }
-
-    public void setTesterList(List<EmissionTestCenter> testerList)
-    {
-        this.testerList = testerList;
-    }
-
-    public EmissionTestCenter getTester()
-    {
-        return tester;
-    }
-
-    public void setTester(EmissionTestCenter tester)
-    {
-        this.tester = tester;
-    }
 
     public GreenAppService getGreenAppService()
     {
@@ -98,27 +83,10 @@ public class TesterController implements Serializable
     @PostConstruct
     public void init()
     {
-        testerList = getGreenAppService().getAllTesters();
         testList = getGreenAppService().getAllTests();
+        testListExpiring = getGreenAppService().getAllTestsExpiringSoon();
     }
 
-    public String addTester()
-    {
-        try
-        {
-            getGreenAppService().createRegistration(getTester());
-
-            List<EmissionTestCenter> testerList = getGreenAppService().getAllTesters();
-            JSFUtils.addInfoMsg("New Tester details saved successfully..");
-            setTesterList(testerList);
-        }
-        catch (Exception e)
-        {
-            JSFUtils.addErrorMsg("Error occurred. Cannot save Tester...");
-        }
-
-        return null;
-    }
 
     public String testEmission()
     {
@@ -127,14 +95,14 @@ public class TesterController implements Serializable
             String testResult = getGreenAppService().testEmission(getTest(), getSelectedRegNumber());
             getTest().setTestResult(testResult);
 
-            if (testResult.equalsIgnoreCase("Test Pass"))
+            if (testResult.equalsIgnoreCase("Passed"))
             {
                 getGreenAppService().createTest(getTest(), getSelectedRegNumber());
             }
             else
             {
                 getGreenAppService().createTest(getTest(), getSelectedRegNumber());
-                getGreenAppService().createIncident(getSelectedRegNumber(), "Emission Test has failed. Please invalidate the registration.");
+                getGreenAppService().createIncident(getSelectedRegNumber(), "Emission Test has failed.");
             }
 
             JSFUtils.addInfoMsg("Emission Test Result: " + testResult);

@@ -1,31 +1,25 @@
 package com.teamgreen.pollconapp.services;
 
-import com.teamgreen.pollconapp.entities.EmissionTestCenter;
-import com.teamgreen.pollconapp.entities.Incident;
-import com.teamgreen.pollconapp.entities.Owner;
-import com.teamgreen.pollconapp.entities.RTO;
-import com.teamgreen.pollconapp.entities.Registration;
-import com.teamgreen.pollconapp.entities.Test;
-import com.teamgreen.pollconapp.entities.Vehicle;
-
-import org.apache.commons.lang3.RandomStringUtils;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Service;
-
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.teamgreen.pollconapp.entities.Incident;
+import com.teamgreen.pollconapp.entities.Owner;
+import com.teamgreen.pollconapp.entities.Registration;
+import com.teamgreen.pollconapp.entities.Test;
+import com.teamgreen.pollconapp.entities.Vehicle;
 
 
 @Service("GreenAppService")
@@ -128,7 +122,7 @@ public class GreenAppService implements Serializable
     }
 
     @Transactional(readOnly = false)
-    public void createRegistration(Vehicle vehicle)
+    public void createVehicle(Vehicle vehicle)
     {
         getSessionFactory().getCurrentSession().save(vehicle);
     }
@@ -177,55 +171,7 @@ public class GreenAppService implements Serializable
         return Collections.emptyList();
     }
 
-    @Transactional(readOnly = true)
-    public List<EmissionTestCenter> getAllTesters()
-    {
-        Session session = getSessionFactory().openSession();
-        Transaction tx = null;
-        List<EmissionTestCenter> testerList = new ArrayList<EmissionTestCenter>();
-
-        try
-        {
-            tx = session.beginTransaction();
-
-            Query query = session.createQuery("from EmissionTestCenter");
-
-            @SuppressWarnings({"unchecked"})
-            List<EmissionTestCenter> list = query.list();
-
-            //System.out.println("list === " + list);
-            for (EmissionTestCenter v : list)
-            {
-                testerList.add(v);
-            }
-
-            tx.commit();
-
-            if (!testerList.isEmpty())
-            {
-                return testerList;
-            }
-        }
-        catch (Exception ve)
-        {
-            if (tx != null)
-            {
-                tx.rollback();
-            }
-        }
-        finally
-        {
-            session.close();
-        }
-
-        return Collections.emptyList();
-    }
-
-    @Transactional(readOnly = false)
-    public void createRegistration(EmissionTestCenter tester)
-    {
-        getSessionFactory().getCurrentSession().save(tester);
-    }
+ 
 
     @Transactional(readOnly = true)
     public List<Owner> getAllOwners()
@@ -387,7 +333,7 @@ public class GreenAppService implements Serializable
 
         updateRegistration(registration);
 
-        return null;
+        return regNumber;
     }
 
     @Transactional(readOnly = false)
@@ -417,55 +363,7 @@ public class GreenAppService implements Serializable
         return (Integer) getSessionFactory().getCurrentSession().save(owner);
     }
 
-    @Transactional(readOnly = true)
-    public List<RTO> getAllRTOs()
-    {
-        Session session = getSessionFactory().openSession();
-        Transaction tx = null;
-        List<RTO> regList = new ArrayList<RTO>();
-
-        try
-        {
-            tx = session.beginTransaction();
-
-            Query query = session.createQuery("from RTO");
-
-            @SuppressWarnings({"unchecked"})
-            List<RTO> list = query.list();
-
-            //System.out.println("list === " + list);
-            for (RTO v : list)
-            {
-                regList.add(v);
-            }
-
-            tx.commit();
-
-            if (!regList.isEmpty())
-            {
-                return regList;
-            }
-        }
-        catch (Exception ve)
-        {
-            if (tx != null)
-            {
-                tx.rollback();
-            }
-        }
-        finally
-        {
-            session.close();
-        }
-
-        return Collections.emptyList();
-    }
-
-    @Transactional(readOnly = false)
-    public void createRegistration(RTO rto)
-    {
-        getSessionFactory().getCurrentSession().save(rto);
-    }
+  
 
     @Transactional(readOnly = true)
     public List<Incident> getAllIncidents()
@@ -597,11 +495,11 @@ public class GreenAppService implements Serializable
         double testParameter1_CO = test.getTestParameter1();
         double testParameter2_CO2 = test.getTestParameter2();
         double testParameter3_HC = test.getTestParameter3();
-        String result = "Test Pass";
+        String result = "Passed";
 
         if ((testParameter1_CO > 1) || ((testParameter2_CO2 > 2.5) && (testParameter3_HC >= 1.3)))
         {
-            result = "Test Fail";
+            result = "Failed";
         }
 
         return result;
@@ -613,4 +511,101 @@ public class GreenAppService implements Serializable
         test.setRegNumber(selectedRegNumber);
         getSessionFactory().getCurrentSession().save(test);
     }
+
+    @Transactional(readOnly = true)
+    public List<Test> getAllTestsExpiringSoon()
+    {
+        Session session = getSessionFactory().openSession();
+        Transaction tx = null;
+        List<Test> regList = new ArrayList<Test>();
+
+        try
+        {
+            tx = session.beginTransaction();
+
+            
+            String sql = "select * from test where  test_expiry between test_date and DATE_ADD(test_date,INTERVAL 30 DAY)";
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(Test.class);
+            List results = query.list();
+
+            @SuppressWarnings({"unchecked"})
+            List<Test> list = query.list();
+
+            //System.out.println("list === " + list);
+            for (Test v : list)
+            {
+                regList.add(v);
+            }
+
+            tx.commit();
+
+            if (!regList.isEmpty())
+            {
+                return regList;
+            }
+        }
+        catch (Exception ve)
+        {
+            if (tx != null)
+            {
+                tx.rollback();
+            }
+        }
+        finally
+        {
+            session.close();
+        }
+
+        return Collections.emptyList();
+    }
+
+	@Transactional(readOnly = true)
+    public List<Test> getTestDetails(String regNo)
+    {
+        Session session = getSessionFactory().openSession();
+        Transaction tx = null;
+        List<Test> regList = new ArrayList<Test>();
+
+        try
+        {
+            tx = session.beginTransaction();
+
+            
+            String sql = "select * from test where  reg_number ="+regNo;
+            SQLQuery query = session.createSQLQuery(sql);
+            query.addEntity(Test.class);
+            List results = query.list();
+
+            @SuppressWarnings({"unchecked"})
+            List<Test> list = query.list();
+
+            //System.out.println("list === " + list);
+            for (Test v : list)
+            {
+                regList.add(v);
+            }
+
+            tx.commit();
+
+            if (!regList.isEmpty())
+            {
+                return regList;
+            }
+        }
+        catch (Exception ve)
+        {
+            if (tx != null)
+            {
+                tx.rollback();
+            }
+        }
+        finally
+        {
+            session.close();
+        }
+
+        return Collections.emptyList();
+    }
+
 }

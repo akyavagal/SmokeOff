@@ -1,6 +1,7 @@
 package com.teamgreen.pollconapp.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,8 +24,18 @@ public class Vehicle implements Serializable
     private int id;
     private String make;
     private String model;
-    private int year;
-    private String engineNumber;
+    private Date makeDate;
+    
+    @Column(name = "MAKE_DATE", nullable = false)
+    public Date getMakeDate() {
+		return makeDate;
+	}
+
+	public void setMakeDate(Date makeDate) {
+		this.makeDate = makeDate;
+	}
+
+	private String engineNumber;
     private String chassisNo;
     private String vehicleNumber;
     private String testStatus;
@@ -69,18 +80,11 @@ public class Vehicle implements Serializable
         this.model = model;
     }
 
-    @Column(name = "YEAR", nullable = false)
-    public int getYear()
-    {
-        return year;
-    }
+  
 
-    public void setYear(int year)
-    {
-        this.year = year;
-    }
+  
 
-    @Column(name = "ENGINE_NO", nullable = false)
+	@Column(name = "ENGINE_NO", nullable = false)
     public String getEngineNumber()
     {
         return engineNumber;

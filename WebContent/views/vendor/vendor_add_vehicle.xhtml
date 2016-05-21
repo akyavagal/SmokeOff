@@ -17,11 +17,12 @@
 	</ui:define>
 	<ui:define name="bodyContent">
 
-			<p:panel header="All Vehicle Details" toggleable="true"  toggleOrientation="vertical"
-			style="width: 900px; margin: 0 auto;">
+		<p:panel header="All Vehicle Details" toggleable="true"
+			toggleOrientation="vertical" style="width: 900px; margin: 0 auto;">
 			<h:form id="viewVehicles" style="color: red; bold;">
 				<p:dataTable id="vehicles" var="vehicle" paginator="true" rows="5"
-                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15"  lazy="false"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15" lazy="false"
 					value="#{vehicleController.vehicleList}" style="width: 100%">
 					<p:column>
 						<f:facet name="header">
@@ -29,12 +30,12 @@
 						</f:facet>
 						<h:outputText value="#{vehicle.id}" />
 					</p:column>
-					
-					
+
+
 					<p:column headerText="Model">
-            			<h:outputText value="#{vehicle.model}" />
-        			</p:column>
-        
+						<h:outputText value="#{vehicle.model}" />
+					</p:column>
+
 					<p:column>
 						<f:facet name="header">
 							<h:outputText value="Make" />
@@ -43,9 +44,9 @@
 					</p:column>
 					<p:column>
 						<f:facet name="header">
-							<h:outputText value="Year" />
+							<h:outputText value="Make Date" />
 						</f:facet>
-						<h:outputText value="#{vehicle.year}" />
+						<h:outputText value="#{vehicle.makeDate}" />
 					</p:column>
 					<p:column>
 						<f:facet name="header">
@@ -79,66 +80,63 @@
 			</h:form>
 		</p:panel>
 
-		<p:growl id="growl" showDetail="true" sticky="false" />  
+		<p:growl id="growl" showDetail="true" sticky="false" />
 
-		<p:panel header="Add Vehicle Form" toggleable="true"  toggleOrientation="vertical"
-			style="width: 900px; margin: 0 auto;">
+		<p:panel header="Add Vehicle Form" toggleable="true"
+			toggleOrientation="vertical" style="width: 900px; margin: 0 auto;">
 			<h:form id="addVehicleForm">
 				<p:messages />
 				<h:panelGrid columns="2">
-					<p:outputLabel value="Model :*" />
-					<p:inputText id="model1" requiredMessage="Model not specified."
-						value="#{vehicleController.vehicle.model}" required="true"
-						label="Model">
-					</p:inputText>
-					
-					<p:outputLabel value="Make :*" />
+
+					<p:outputLabel value="Make :(Ex: Honda)*" />
 					<p:inputText id="make1" requiredMessage="Make not specified."
 						value="#{vehicleController.vehicle.make}" required="true"
 						label="Make">
 					</p:inputText>
-					
-					
-					<p:outputLabel value="Year :*" />
-					<p:inputText id="year1" requiredMessage="Year not specified."
-						value="#{vehicleController.vehicle.year}" required="true"
-						label="Year">
-					</p:inputText>
-					
-					
-					<p:outputLabel value="Engine Number :*" />
-					<p:inputText id="engine1" requiredMessage="Engine Number not specified."
-						value="#{vehicleController.vehicle.engineNumber}" required="true"
-						label="Engine Number">
-					</p:inputText>
-					
-					
-					<p:outputLabel value="Chassis Number :*" />
-					<p:inputText id="chassis1" requiredMessage="Chassis Number not specified."
-						value="#{vehicleController.vehicle.chassisNo}" required="true"
-						label="Chassis Number">
-					</p:inputText>
-					
-					
-					<p:outputLabel value="Vehicle Number :*" />
-					<p:inputText id="vin" requiredMessage="Vehicle NUmber not specified."
-						value="#{vehicleController.vehicle.vehicleNumber}" required="true"
-						label="Model">
-					</p:inputText>
-					
-					
-					<p:outputLabel value="Test Status :*" />
-					<p:inputText id="model" requiredMessage="Test Status not specified."
-						value="#{vehicleController.vehicle.testStatus}" required="true"
+
+					<p:outputLabel value="Model :(Ex: Activa)*" />
+					<p:inputText id="model1" requiredMessage="Model not specified."
+						value="#{vehicleController.vehicle.model}" required="true"
 						label="Model">
 					</p:inputText>
 
-					<p:outputLabel value="" />
-					<p:commandButton action="#{vehicleController.addVehicle}" ajax="false"
-						value="Add Vehicle" update="@form" />
-				</h:panelGrid>
-			</h:form>
+
+					<p:outputLabel value="Make Date :*" />
+					<p:calendar value="#{vehicleController.vehicle.makeDate}"
+						yearRange="c-80:c+0" id="mkdt" navigator="true" required="true" pattern="yyyy-MM-dd"
+						label="Make Date">
+						<p:tooltip for="mkdt" value="Please enter Make Date" />
+					</p:calendar>
+
+
+					<p:outputLabel value="Engine Number :*" />
+					<p:inputText id="engine1"
+						requiredMessage="Engine Number not specified."
+						value="#{vehicleController.vehicle.engineNumber}" required="true"
+						label="Engine Number">
+					</p:inputText>
+
+
+					<p:outputLabel value="Chassis Number :*" />
+					<p:inputText id="chassis1"
+						requiredMessage="Chassis Number not specified."
+						value="#{vehicleController.vehicle.chassisNo}" required="true"
+						label="Chassis Number">
+					</p:inputText>
+
+					<p:outputLabel value="Emission Test Status:*" />
+					<p:selectOneMenu id="teststat" value="#{vehicleController.vehicle.testStatus}" required="true" requiredMessage="Test Status is mandatory">
+					 <f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItem itemLabel="Passed" itemValue="Passed" />
+						<f:selectItem itemLabel="Failed" itemValue="Failed" />
+					</p:selectOneMenu>
 					
+
+					<p:outputLabel value="" />
+					<p:commandButton action="#{vehicleController.addVehicle}"
+						ajax="false" value="Add Vehicle" update="@form" />				</h:panelGrid>
+			</h:form>
+
 		</p:panel>
 
 
