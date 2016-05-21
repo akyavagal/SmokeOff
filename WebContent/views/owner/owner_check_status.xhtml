@@ -26,7 +26,7 @@
 				<p:messages />
 				<h:panelGrid columns="2">
 					<p:outputLabel value="Enter Registration Number :*" />
-					<p:inputText id="regnum1" requiredMessage="Model not specified."
+					<p:inputText id="regnum1" requiredMessage="Registration Number not specified."
 						value="#{regController.selectedRegNumber}" required="true"
 						label="Registration Number">
 					</p:inputText>
@@ -37,6 +37,77 @@
 			</h:form>
 		</p:panel>
 
+
+		<p:panel header="Details" toggleable="true"  toggleOrientation="vertical" rendered="#{regController.ownerRender}"
+			style="width: 1300px; margin: 0 auto;">
+			<h:form id="alltestd" style="color: red; bold;">
+				<p:dataTable id="alltestd" var="test" paginator="true" rows="5"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}" rowsPerPageTemplate="5,10,15"  lazy="false"
+					value="#{regController.testList}" style="width: 100%">
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{test.id}" />
+					</p:column>
+					
+					
+					<p:column headerText="Test Number">
+            			<h:outputText value="#{test.testNumber}" />
+        			</p:column>
+        
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Date" />
+						</f:facet>
+						<h:outputText value="#{test.testDate}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Date" />
+						</f:facet>
+						<h:outputText value="#{test.testExpiry}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Parameter 1" />
+						</f:facet>
+						<h:outputText value="#{test.testParameter1}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Parameter 2" />
+						</f:facet>
+						<h:outputText value="#{test.testParameter2}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Parameter 3" />
+						</f:facet>
+						<h:outputText value="#{test.testParameter3}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Test Result" />
+						</f:facet>
+						<h:outputText value="#{test.testResult}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Registration Number" />
+						</f:facet>
+						<h:outputText value="#{test.regNumber}" />
+					</p:column>
+					
+				</p:dataTable>
+			</h:form>
+		</p:panel>
 
 	</ui:define>
 </ui:composition>

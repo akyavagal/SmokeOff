@@ -44,8 +44,17 @@ public class RegistrationController implements Serializable
     private List<Incident> incList = new ArrayList<Incident>();
     private List<Registration> regList = new ArrayList<Registration>();
     private List<Test> testList = null;
+    private boolean ownerRender = false;
 
-    public List<Test> getTestList() {
+    public boolean isOwnerRender() {
+		return ownerRender;
+	}
+
+	public void setOwnerRender(boolean ownerRender) {
+		this.ownerRender = ownerRender;
+	}
+
+	public List<Test> getTestList() {
 		return testList;
 	}
 
@@ -399,13 +408,15 @@ public class RegistrationController implements Serializable
         {
             List<Test> testDetails = getGreenAppService().getTestDetails(getSelectedRegNumber());
 
-            if(testDetails!=null)
+            if(testDetails!=null && !testDetails.isEmpty())
             {
             	JSFUtils.addInfoMsg("Success");
             	setTestList(testDetails);
+            	setOwnerRender(true);
             	
             }else{
             	JSFUtils.addInfoMsg("No details found.");
+            	setOwnerRender(false);
             }
 
             

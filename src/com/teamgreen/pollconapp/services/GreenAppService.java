@@ -242,6 +242,7 @@ public class GreenAppService implements Serializable
             //System.out.println("list === " + list);
             for (Registration v : list)
             {
+            	v.getOwner().setName(v.getOwner().getName()+"_"+v.getOwner().getContactNumber());
                 regList.add(v);
             }
 
@@ -535,6 +536,7 @@ public class GreenAppService implements Serializable
             //System.out.println("list === " + list);
             for (Test v : list)
             {
+            	
                 regList.add(v);
             }
 
@@ -572,7 +574,7 @@ public class GreenAppService implements Serializable
             tx = session.beginTransaction();
 
             
-            String sql = "select * from test where  reg_number ="+regNo;
+            String sql = "select * from test where  reg_number ='"+regNo+"'";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(Test.class);
             List results = query.list();
