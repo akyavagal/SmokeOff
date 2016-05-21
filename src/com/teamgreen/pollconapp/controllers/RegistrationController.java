@@ -374,11 +374,11 @@ public class RegistrationController implements Serializable
 
     public String generateCertificate()
     {
-        //System.out.println("Selected Reg Number : "+ getSelectedRegNumber());
+        System.out.println("Selected Reg Number : "+ getSelectedRegNumber());
         try
         {
             boolean testPassed = getGreenAppService().isEmissionTestPassed(getSelectedRegNumber());
-
+            System.out.println("testPassed ====> "+testPassed);
             if (testPassed)
             {
                 setEmissionCertificate("Test Passed");
